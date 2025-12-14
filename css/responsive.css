@@ -1,103 +1,109 @@
-@media screen and (max-width: 1000px) {
-  .interior {
-    background-image:none;
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-  .interior__left {
-    max-width: 50%;
-  }
-  .kitchen__inner {
-    
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-  .kitchen__left {
-    max-width: 50%;
-  }
-  .kitchen__right {
-    float: right;
-    width: 355px; /* Ширина видимой части */
-    height: 600px; /* Высота видимой части */
-    overflow: hidden;
-  }
-  .kitchen__right img{
-    float: right;
-    width: 100%; /* Изображение займет всю ширину контейнера */
-    height: 100%;
-    object-fit: cover; /* Масштабирует изображение, сохраняя пропорции, обрезая лишнее */
-    object-position: left center;
-  }
-  .menu__inner  {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-  .contacts__inner {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-  #map {
-    width: 100%;
-    height: 411px;
-  }
-  .footer__inner {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .interior {
-    background-image:none;
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-  .interior__inner {
-    display: grid;
-  }
-  .interior__left {
-    max-width: 100%;
-  }
-  .menu__inner {
-    display: block;
-  }
-  .contacts__content {
-    display: block;
-  }
-  .footer__logo  img{
-    max-width: 80%;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .hero {
-    padding: 208px 0;
-  }
-  .hero__inner {
-    max-width: 670px;
-  }
-  .footer__top {
-    display: grig;
-  }
-  .footer__logo  img{
-    max-width: 80%;
-  }
-}
-
-@media screen and  (max-width: 700px) {
-  .menu__list {
-      display: none;
+/* ==============================
+   Медиа-запрос для экранов <= 1000px
+   ============================== */
+   @media screen and (max-width: 1000px) {
+    /* Общий padding для секций */
+    .section-padding {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  
+    /* Интерьер — убираем фон */
+    .interior {
+      background-image: none;
+    }
+  
+    /* Левая часть кухни */
+    .kitchen__left {
+      max-width: 50%;
+    }
+  
+    /* Правая часть кухни */
+    .kitchen__right {
+      float: right;
+      width: 355px; /* Ширина видимой части */
+      height: 600px; /* Высота видимой части */
+      overflow: hidden;
+    }
+  
+    /* Картинка в правой части кухни */
+    .kitchen__right img {
+      float: right;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Масштабирует изображение, сохраняя пропорции */
+      object-position: left center; /* Позиционирование по дизайну */
+    }
+  
+    /* Карта */
+    #map {
+      width: 100%;
+      height: 411px;
+    }
+  
+    /* Подвал */
+    .site-footer__inner {
+      padding: 80px;
+      padding-top: 0;
+    }
   }
   
-  .header__burger {
+  /* ==============================
+     Медиа-запрос для экранов <= 850px
+     ============================== */
+  @media screen and (max-width: 850px) {
+    /* Сетка для контента */
+    .interior__inner,
+    .menu__inner,
+    .contacts__content {
+      display: grid; /* Или block, если нужно */
+    }
+  
+    /* Hero */
+    .hero__inner {
+      max-width: 670px;
+    }
+  
+    /* Подвал */
+    .site-footer__top {
+      display: grid;
+      justify-content: center;
+      justify-items: center;
+    }
+  
+    .site-footer__list {
+      display: grid;
+      justify-items: center;
+      margin: 48px 0;
+      gap: 24px;
+    }
+  
+    .site-footer__logo img {
+      max-width: 179px;
+      width: 100%;
+    }
+  
+    .site-footer__bottom {
+      display: grid;
+      justify-items: center;
+    }
+  
+    .site-footer__legal-link {
+      display: block;
+      margin: 0 auto 16px;
+      text-align: center;
+    }
+  
+    /* Меню для мобильных */
+    .nav-toggle {
       display: block;
       position: relative;
       width: 30px;
       height: 20px;
       z-index: 3;
-  }
-
-  .header__burger span {
+    }
+  
+    .nav-toggle span {
       background-color: #020508;
       position: absolute;
       width: 100%;
@@ -105,41 +111,35 @@
       left: 0;
       top: 9px;
       transition: all 0.3s ease 0s;
-  }
-
-  .header__burger:before{
-  content: '';
-  background-color: #020508;
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  left: 0;
-  transition: all 0.3s ease 0s;
-  }
-  .header__burger:after {
-  content: '';
-  background-color: #020508;
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  left: 0;
-  transition: all 0.3s ease 0s;
-  }
-  .header__burger:before {
+    }
+  
+    .nav-toggle:before,
+    .nav-toggle:after {
+      content: '';
+      background-color: #020508;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      left: 0;
+      transition: all 0.3s ease 0s;
+    }
+  
+    .nav-toggle:before {
       top: 0;
     }
   
-    .header__burger:after {
+    .nav-toggle:after {
       bottom: 0;
-  }
-
-  .header__burger.active:before {
+    }
+  
+    /* Анимация кнопки "гамбургер" */
+    .nav-toggle.active:before {
       transform: rotate(45deg);
       top: 9px;
       background-color: #fff;
     }
   
-    .header__burger.active:after {
+    .nav-toggle.active:after {
       transform: rotate(-45deg);
       bottom: 9px;
       width: 100%;
@@ -147,162 +147,179 @@
       background-color: #fff;
     }
   
-    .header__burger.active span {
+    .nav-toggle.active span {
       transform: scale(0);
-  }
-
-  .header__menu {
+    }
+  
+    /* Мобильное меню */
+    .site-nav {
       position: fixed;
       top: -100%;
       left: 0;
       width: 100%;
       height: 100%;
-  /*для прокрутки меню, когда оно не помещается в экран*/
-      overflow: auto;   
+      overflow: auto; /* Прокрутка меню, если не помещается */
       background-color: var(--color-mexican-red);
       padding: 70px 10px 20px 10px;
       transition: all 0.3s ease 0s;
-  }
-
-  .header__menu.active {
+    }
+  
+    .site-nav.active {
       top: 0;
     }
   
-    .menu__list {
+    .site-nav__list {
       display: block;
       text-align: center;
     }
-
-    .list__item {
+  
+    .site-nav__item {
       margin-bottom: 50px;
     }
   
-    .item__link {
+    .site-nav__link {
       font-size: 26px;
       color: #fff;
+    }
   }
-}
-
-@media screen and  (max-width: 600px) {
-  .kitchen__inner {
-    padding: 64px 20px;
-    display: block;
-  }
-  .kitchen__right {
-    width: 100%;
-    float: none; /* Ширина видимой части */
-    height: auto; /* Высота видимой части */
-    overflow:auto;
-  }
-  .kitchen__left {
-    max-width: 100%;
-  }
-  .kitchen__subtitle {
-    max-width: 100%;
-  }
-  .kitchen__right img{
-    float:none;
-    width: 100%; /* Изображение займет всю ширину контейнера */
-    height: 100%;
-    object-fit: cover; /* Масштабирует изображение, сохраняя пропорции, обрезая лишнее */
-    object-position: center;
-  }
-}
-
-@media screen and (max-width: 500px){
-  h2 {
-    font-size: 36px;
-  }
-
-  .header {
-    padding: 16px 20px;
-  }
-
-  .hero {
-    padding: 229px 20px;
-  }
-  .hero__logo img {
-    width: 240px;
-    height: 54px;
-  }
-  .hero__title {
-    font-size: 40px;
-    margin-top: 20px;
-  }
-  .hero__discr {
-    font-size: 16px;
-    margin-top: 20px;
-  }
-  .btn-booking, .btn-menu {
-    font-size: 16px;
-  }
-
-  .interior {
-    padding: 64px 20px;
-  }
-  .interior__inner {
-    display: grid;
-  }
-  .interior__small-img {
-    width: 100%;
-    height: 100%;
-  }
-  .interior__small-img img {
-    width: 100%;
-    height: 100%;
-  }
-  .interior__subtitle{
-    margin-top: 48px;
-  }
-  .interior__title {
-    margin-top: 12px;
-  }
-  .interior__discr {
-    margin-top: 20px;
-    font-size: 16px;
-  }
-
   
-
-  .menu__inner  {
-    display: block;
-    padding: 64px 20px;
+  /* ==============================
+     Медиа-запрос для экранов <= 600px
+     ============================== */
+  @media screen and (max-width: 600px) {
+    /* Кухня */
+    .kitchen__inner {
+      display: block;
+    }
+  
+    .kitchen__right {
+      width: 100%;
+      float: none;
+      height: auto;
+      overflow: auto;
+    }
+  
+    .kitchen__left,
+    .kitchen__subtitle {
+      max-width: 100%;
+    }
+  
+    .kitchen__right img {
+      float: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center; /* Сохраняем дизайн */
+    }
+  
+    /* Контакты */
+    .contacts__top {
+      display: block;
+    }
+  
+    .contacts__info {
+      margin-top: 48px;
+    }
+  
+    /* Заголовки */
+    h2 {
+      font-size: 36px;
+    }
+  
+    /* Header */
+    .header {
+      padding: 16px 20px;
+    }
+  
+    /* Hero */
+    .hero__logo img {
+      width: 240px;
+      height: 54px;
+    }
+  
+    .hero__title {
+      font-size: 40px;
+      margin-top: 20px;
+    }
+  
+    .hero__discr {
+      font-size: 16px;
+      margin-top: 20px;
+    }
+  
+    .btn-booking,
+    .btn-menu {
+      font-size: 16px;
+    }
+  
+    /* Интерьер */
+    .interior {
+      padding: 64px 20px;
+    }
+  
+    .interior__inner {
+      display: grid;
+    }
+  
+    .interior__subtitle {
+      margin-top: 48px;
+    }
+  
+    .interior__title {
+      margin-top: 12px;
+    }
+  
+    .interior__discr {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  
+    /* Меню */
+    .menu__inner {
+      display: block;
+      padding: 64px 20px;
+    }
+  
+    .menu__title {
+      margin-top: 12px;
+    }
+  
+    .menu__block {
+      gap: 0;
+    }
+  
+    .menu__discr {
+      margin-top: 20px;
+    }
+  
+    .menu__btn {
+      display: inline-block;
+    }
+  
+    .link__vine {
+      margin-top: 24px;
+    }
+  
+    /* Контакты */
+    .contacts__inner {
+      padding: 64px 20px;
+    }
+  
+    #map {
+      width: 100%;
+      height: 411px;
+    }
+  
+    .contact-info {
+      margin-top: 48px;
+    }
+  
+    .item__content {
+      font-family: "Poiret One", sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 140%;
+      letter-spacing: -0.01em;
+      color: var(--color-scheme-6-text);
+    }
   }
-  .menu__title {
-    margin-top: 12px;
-  }
-  .menu__block {
-    gap: 0;
-  }
-  .menu__discr  {
-    margin-top: 20px;
-  }
-  .menu__btn {
-    display: inline-block;
-  }
-  .link__vine {
-    margin-top: 24px;
-  }
-
-  .contacts__inner {
-    padding: 64px 20px;
-  }
-  .contacts__content {
-    display: block;
-  }
-  #map {
-    width: 100%;
-    height: 411px;
-  }
-  .contact-info {
-    margin-top: 48px;
-  }
-  .item__content {
-    font-family: "Poiret One", sans-serif;;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 140%;
-    letter-spacing: -0.01em;
-    color: var(--color-scheme-6-text);
-  }
-}
