@@ -1,25 +1,18 @@
-// Находим кнопку меню "гамбургер"
-let menu_button = document.querySelector('.nav-toggle');
+const menuButton = document.querySelector('.nav-toggle');
+const menu = document.querySelector('.site-nav');
+const menuList = document.querySelector('.site-nav__list');
+const body = document.body;
 
-// Находим сам блок меню
-let menu_itself = document.querySelector('.site-nav');
+menuButton.addEventListener('click', () => {
+  const isOpen = menuButton.classList.toggle('active');
+  menu.classList.toggle('active');
+  body.classList.toggle('lock');
+  menuButton.setAttribute('aria-expanded', isOpen);
+});
 
-// Находим список пунктов меню
-let menu_list = document.querySelector('.site-nav__list');
-
-// Находим body, чтобы управлять блокировкой прокрутки при открытом меню
-let body = document.querySelector('body');
-
-// Добавляем обработчик клика на кнопку меню
-menu_button.onclick = function() {
-  menu_button.classList.toggle('active'); // Меняем состояние кнопки (анимация "X")
-  menu_itself.classList.toggle('active'); // Показываем или скрываем меню
-  body.classList.toggle('lock');          // Блокируем прокрутку страницы при открытом меню
-};
-
-// Добавляем обработчик клика на сам список меню
-menu_list.onclick = function() {
-  menu_button.classList.toggle('active'); // Закрываем кнопку меню
-  menu_itself.classList.toggle('active'); // Скрываем меню
-  body.classList.toggle('lock');          // Разблокируем прокрутку страницы
-};
+menuList.addEventListener('click', () => {
+  menuButton.classList.remove('active');
+  menu.classList.remove('active');
+  body.classList.remove('lock');
+  menuButton.setAttribute('aria-expanded', false);
+});

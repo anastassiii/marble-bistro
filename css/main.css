@@ -14,16 +14,6 @@
 }
 
 /* Заголовки */
-h1 {
-    margin-top: 30px;
-    font-family: "Poiret One", sans-serif;
-    font-weight: 400;
-    font-size: 45px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    text-align: center;
-    color: var(--color-white);
-}
 
 h2 {
     font-family: "Poiret One", sans-serif;
@@ -52,6 +42,11 @@ h2 {
     font-weight: 400;
     font-size: 22px;
     line-height: 150%;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.hero__btn:hover {
+  transform: translateY(-2px);
 }
 
 /* ==============================
@@ -84,6 +79,11 @@ h2 {
     font-size: 16px;
     line-height: 150%;
     color: var(--color-scheme-3-text);
+    transition: color 0.3s ease;
+}
+
+.site-nav__link:hover {
+  color: var(--color-mexican-red);
 }
 
 .site-header__booking {
@@ -96,6 +96,12 @@ h2 {
     font-size: 18px;
     line-height: 150%;
     color: var(--color-white);
+     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.site-header__booking:hover {
+  background: transparent;
+  color: var(--color-mexican-red);
 }
 
 /* ==============================
@@ -119,6 +125,29 @@ h2 {
 .hero__inner {
     max-width: 768px; /* ограничение ширины */
     width: 100%;
+    animation: heroFadeUp 0.8s ease-out forwards;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero__title {
+    margin-top: 30px;
+    font-family: "Poiret One", sans-serif;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--color-white);
 }
 
 .hero__lead {
@@ -205,9 +234,39 @@ h2 {
     height: 100%;
 }
 
+.interior__left,
+.interior__right {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.interior__right {
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ==============================
    Kitchen
-   ============================== */
+============================== */
+
+.kitchen {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.kitchen.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .kitchen__inner {
     padding-top: 126px;
     display: flex;
@@ -240,6 +299,8 @@ h2 {
 .kitchen__right {
     width: 50%;
 }
+
+
 
 /* ==============================
    Menu
@@ -295,6 +356,12 @@ h2 {
     font-size: 16px;
     line-height: 150%;
     color: var(--color-white);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.menu__link:hover {
+    background-color: var(--opacity-white-10);
+    transform: translateY(-2px);
 }
 
 /* Основная кнопка */
@@ -465,4 +532,209 @@ h2 {
     line-height: 150%;
     text-decoration: underline;
     color: var(--color-scheme-1-text);
+}
+
+
+
+
+/* ==============================
+   Booking Modal Animations
+   ============================== */
+.booking-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.booking-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.booking-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.booking-modal.active .booking-modal__overlay {
+  opacity: 1;
+}
+
+.booking-modal__content {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+  transform: translateY(-40px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.booking-modal.active .booking-modal__content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.booking-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Поля формы анимируются по очереди */
+.booking-form label {
+  display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-scheme-3-text);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 0.4s forwards;
+}
+
+.booking-form input {
+    height: 56px; /* 🔥 увеличенная высота */
+    padding: 0 20px;
+
+    border: 1px solid var(--opacity-black-20);
+    border-radius: 100px;
+    outline: none;
+    border: 1px solid var(--color-mexican-red);
+    box-shadow: none;
+
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--color-neutral-darkest);
+
+    background-color: transparent;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.booking-form input::placeholder {
+    color: var(--opacity-black-40);
+}
+
+.booking-form input:focus {
+    outline: none;
+    border-color: var(--opacity-black-20);
+    box-shadow: 0 0 0 2px rgba(153, 50, 128, 0.15);
+}
+
+.label__guests {
+    display: block;
+    width: 100%;
+}
+
+.booking-form label:nth-child(1) { animation-delay: 0.1s; }
+.booking-form label:nth-child(2) { animation-delay: 0.2s; }
+.booking-form label:nth-child(3) { animation-delay: 0.3s; }
+.booking-form label:nth-child(4) { animation-delay: 0.4s; }
+.booking-form label:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.booking-form__submit {
+    display: block;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--color-mexican-red);
+    border-radius: 100px;
+    padding: 8px 20px;
+    background: var(--color-mexican-red);
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    color: var(--color-white);
+
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.booking-form__submit:hover {
+    background-color: transparent;
+    color: var(--color-mexican-red);
+}
+
+@keyframes slideInBtn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.booking-form__success {
+  display: none;
+  margin-top: 16px;
+  text-align: center;
+  color: green;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.booking-form__success.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-error {
+  font-size: 13px;
+  color: #d93025;
+  margin-top: 4px;
+  display: none;
+}
+
+.form-error.active {
+  display: block;
+}
+
+.booking-form input.error {
+  border-color: #d93025;
+  box-shadow: 0 0 0 2px rgba(217, 48, 37, 0.15);
+}
+
+.booking-form__submit.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.booking-form__submit.loading::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

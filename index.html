@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="./css/main.css" />
   <link rel="stylesheet" href="./css/color.css" />
   <link rel="stylesheet" href="./css/responsive.css" />
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
 </head>
 
 <body>
@@ -50,7 +53,7 @@
     <section class="hero section-padding" aria-label="Главный баннер">
       <div class="hero__inner container">
         <div class="hero__logo">
-          <img src="./img/full_logo.svg" alt="MARBLE — логотип" />
+          <img src="./img/full_logo.svg" alt="MARBLE — логотип" loading="lazy" />
         </div>
 
         <h1 class="hero__title">Стильное городское бистро в самом сердце Москвы</h1>
@@ -70,7 +73,7 @@
 
         <div class="interior__left">
           <div class="interior__media">
-            <img src="./img/interior__small.png" alt="Декоративный элемент интерьера" class="interior__media-img" />
+            <img src="./img/interior__small.png" alt="Декоративный элемент интерьера" class="interior__media-img" aria-hidden="true" />
           </div>
 
           <p class="section__subtitle  section__subtitle--accent">Атмосфера</p>
@@ -86,17 +89,17 @@
         </div>
 
         <div class="interior__right">
-          <img src="./img/interior__img.png" alt="Интерьер ресторана MARBLE" class="interior__image" />
+          <img src="./img/interior__img.png" alt="Интерьер ресторана MARBLE" class="interior__image" loading="lazy" />
         </div>
 
       </div>
     </section>
 
     <!-- Kitchens (динамически генерируемые секции) -->
-    <section id="kitchen-container " class="kitchen-container section-padding"></section>
+    <section id="kitchen-container" class="kitchen-container section-padding" data-animate></section>
 
     <!-- Menu -->
-    <section class="menu section-padding" aria-labelledby="menu-title">
+    <section class="menu section-padding" aria-labelledby="menu-title" data-animate>
       <div class="container menu__inner">
         <div class="menu__meta">
           <p class="section__subtitle section__subtitle--primary">Меню</p>
@@ -208,12 +211,50 @@
     </div>
   </footer>
 
+  <!-- Модальное окно бронирования -->
+  <div class="booking-modal">
+  <div class="booking-modal__overlay"></div>
+  <div class="booking-modal__content">
+    <button class="booking-modal__close">&times;</button>
+     <h2 id="booking-title" class="booking-modal__title">Забронировать стол</h2>
+
+    <form class="booking-form">
+      <label>
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <span class="form-error"></span>
+      </label>
+      <label>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <span class="form-error"></span>
+      </label>
+      <label>
+        <input type="text" name="date" id="booking-date" placeholder="Выберите дату" required>
+        <span class="form-error"></span>
+      </label>
+      <label>
+        <input type="text" name="time" id="booking-time" placeholder="Выберите время" required>
+        <span class="form-error"></span>
+      </label>
+      <label class="label__guests">
+        <input type="number" name="guests" min="1" max="20" placeholder="Количество гостей" required>
+        <span class="form-error"></span>
+      </label>
+      <button type="submit" class="booking-form__submit btn btn--primary">Забронировать</button>
+      <p class="booking-form__success">Спасибо! Ваша бронь отправлена</p>
+    </form>
+  </div>
+</div>
+
   <!-- Scripts (в конце body — чтобы DOM уже был загружен) -->
+   <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+   
+  <script src="./js/main.js"></script>
   <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
   <script src="./js/map.js" defer></script>
   <script src="./js/burger-menu.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
 </body>
-
 <script src="./js/kitchen.js" defer></script>
 </html>
