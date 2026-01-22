@@ -20,7 +20,6 @@
   
     /* Правая часть кухни */
     .kitchen__right {
-      float: right;
       width: 355px; /* Ширина видимой части */
       height: 600px; /* Высота видимой части */
       overflow: hidden;
@@ -28,7 +27,6 @@
   
     /* Картинка в правой части кухни */
     .kitchen__right img {
-      float: right;
       width: 100%;
       height: 100%;
       object-fit: cover; /* Масштабирует изображение, сохраняя пропорции */
@@ -154,18 +152,21 @@
     /* Мобильное меню */
     .site-nav {
       position: fixed;
-      top: -100%;
+      top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      z-index: 9999;
       overflow: auto; /* Прокрутка меню, если не помещается */
       background-color: var(--color-mexican-red);
       padding: 70px 10px 20px 10px;
       transition: all 0.3s ease 0s;
+      transform: translateY(-100%);
     }
   
     .site-nav.active {
       top: 0;
+      transform: translateY(0);
     }
   
     .site-nav__list {

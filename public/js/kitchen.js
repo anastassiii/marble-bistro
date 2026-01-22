@@ -43,7 +43,7 @@ function createKitchenSection(data) {
           <p class="kitchen__discr">${data.text}</p>
         </div>
         <div class="kitchen__right">
-          <img src="${data.img}" alt="${data.title}">
+          <img src="${data.img}" alt="Раздел меню: ${data.title}">
         </div>
       </div>
     </div>

@@ -1,0 +1,28 @@
+{
+  "name": "marble",
+  "version": "1.0.0",
+  "description": "Добро пожаловать на лендинг современного ресторана!  \r Проект демонстрирует адаптивный дизайн, интерактивное меню и секцию контактов с картой.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anastassiii/marble-bistro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anastassiii/marble-bistro/issues"
+  },
+  "homepage": "https://github.com/anastassiii/marble-bistro#readme",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "localtunnel": "^2.0.2",
+    "ngrok": "^5.0.0-beta.2"
+  }
+}
