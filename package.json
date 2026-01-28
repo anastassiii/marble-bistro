@@ -18,11 +18,14 @@
   },
   "homepage": "https://github.com/anastassiii/marble-bistro#readme",
   "dependencies": {
+    "better-sqlite3": "^12.6.2",
     "body-parser": "^2.2.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "localtunnel": "^2.0.2",
-    "ngrok": "^5.0.0-beta.2"
+    "ngrok": "^5.0.0-beta.2",
+    "node-fetch": "^2.7.0",
+    "sqlite3": "^5.1.7"
   }
 }

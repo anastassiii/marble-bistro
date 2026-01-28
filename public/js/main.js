@@ -6,12 +6,13 @@
   const bookingSuccess = document.querySelector('.booking-form__success');
   const body = document.body;
 
+  // === Модальное окно ===
   function closeBookingModal() {
     bookingModal.classList.remove('active');
     body.classList.remove('lock');
     bookingForm.reset();
     bookingSuccess.classList.remove('active');
-    bookingForm.querySelectorAll('input').forEach(input => clearError(input));
+    bookingForm.querySelectorAll('input').forEach(clearError);
   }
 
   if (bookingBtn && bookingModal && bookingClose && bookingForm) {
@@ -24,46 +25,54 @@
     bookingModal.querySelector('.booking-modal__overlay').addEventListener('click', closeBookingModal);
   }
 
-  // ==============================
-  // Flatpickr с блокировкой занятых слотов
-  // ==============================
+  // === Получаем занятые слоты с сервера ===
   async function getBookedSlots() {
-    const res = await fetch('/booked');
-    return res.json();
+    try {
+      const res = await fetch('/booking/booked');
+      return res.ok ? await res.json() : [];
+    } catch (err) {
+      console.error('Ошибка получения занятых слотов:', err);
+      return [];
+    }
   }
 
+  // === Flatpickr ===
   if (typeof flatpickr !== 'undefined') {
     (async () => {
       const booked = await getBookedSlots();
 
-      const disabledDates = [...new Set(booked.map(b => b.date))];
+      // Преобразуем даты из формата YYYY-MM-DD в ISO для сравнения
+      const disabledDates = booked.map(b => b.date);
 
-      flatpickr("#booking-date", {
+      flatpickr("#date", {
         locale: "ru",
         minDate: "today",
-        dateFormat: "d.m.Y",
-        altInput: true,
-        altFormat: "d F Y",
-        disable: disabledDates,
+        dateFormat: "Y-m-d",
         onChange: function(selectedDates, dateStr) {
-          const timesForDate = booked.filter(b => b.date === dateStr).map(b => b.time);
-          flatpickr("#booking-time", {
+          const timesForDate = booked
+            .filter(b => b.date === dateStr)
+            .map(b => b.time);
+
+          flatpickr("#time", {
             enableTime: true,
             noCalendar: true,
             dateFormat: "H:i",
             time_24hr: true,
-            altInput: true,
-            altFormat: "H:i",
             disable: timesForDate
           });
         }
       });
+
+      flatpickr("#time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+      });
     })();
   }
 
-  // ==============================
-  // Валидация и отправка формы
-  // ==============================
+  // === Валидация и отправка формы ===
   if (bookingForm) {
     bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -78,7 +87,7 @@
 
       if (!name.value.trim()) { showError(name, 'Введите имя'); valid = false } else clearError(name);
       if (!isValidPhone(phone.value)) { showError(phone, 'Введите корректный телефон'); valid = false } else clearError(phone);
-      if (!isValidDate(date.value)) { showError(date, 'Дата не может быть в прошлом'); valid = false } else clearError(date);
+      if (!date.value) { showError(date, 'Выберите дату'); valid = false } else clearError(date);
       if (!time.value) { showError(time, 'Выберите время'); valid = false } else clearError(time);
       if (+guests.value < 1) { showError(guests, 'Минимум 1 гость'); valid = false } else clearError(guests);
 
@@ -99,32 +108,29 @@
   function showError(input, message) {
     const error = input.nextElementSibling;
     input.classList.add('error');
-    error.textContent = message;
-    error.classList.add('active');
+    if(error){
+      error.textContent = message;
+      error.classList.add('active');
+    }
   }
 
   function clearError(input) {
     const error = input.nextElementSibling;
     input.classList.remove('error');
-    error.textContent = '';
-    error.classList.remove('active');
+    if(error){
+      error.textContent = '';
+      error.classList.remove('active');
+    }
   }
 
   function isValidPhone(phone) {
-    return /^\+7\s?\(?\d{3}\)?\s?\d{3}[- ]?\d{2}[- ]?\d{2}$/.test(phone);
-  }
-
-  function isValidDate(dateStr) {
-    const today = new Date();
-    const [d, m, y] = dateStr.split('.');
-    const selected = new Date(`${y}-${m}-${d}`);
-    today.setHours(0,0,0,0);
-    return selected >= today;
+    return phone.trim().length >= 10; // можно сделать более строгий regex при желании
   }
 
   async function submitForm(data) {
     try {
-      bookingBtn.classList.add('loading');
+      const submitBtn = bookingForm.querySelector('button[type="submit"]');
+      submitBtn.classList.add('loading');
 
       const response = await fetch('/booking', {
         method: 'POST',
@@ -138,14 +144,15 @@
         bookingForm.reset();
         bookingSuccess.classList.add('active');
       } else {
-        throw new Error(result.message);
+        throw new Error(result.message || 'Ошибка сервера');
       }
 
     } catch(err) {
       console.error(err);
       alert('Ошибка отправки. Проверьте консоль');
     } finally {
-      bookingBtn.classList.remove('loading');
+      const submitBtn = bookingForm.querySelector('button[type="submit"]');
+      submitBtn.classList.remove('loading');
     }
   }
 })();

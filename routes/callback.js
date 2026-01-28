@@ -3,18 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const { editBookingStatus } = require('../services/telegram');
-
-const bookingsFile = path.join(__dirname, '../data/bookings.json');
-
-function loadBookings() {
-    if (!fs.existsSync(bookingsFile)) return [];
-    const data = fs.readFileSync(bookingsFile, 'utf-8');
-    return JSON.parse(data)
-}
-
-function saveBookings(bookings) {
-  fs.writeFileSync(bookingsFile, JSON.stringify(bookings, null, 2));
-}
+const db = require('../db/database')
 
 // === POST /callback ===
 router.post('/', async (req, res) => {
@@ -23,17 +12,18 @@ router.post('/', async (req, res) => {
     if (!query) return res.sendStatus(200);
 
     const [action, id] = query.data.split('_');
-    const bookings = loadBookings();
-    const booking = bookings.find(b => b.id === id);
+    const bookingId = parseInt(id, 10);
+  
+    // Находим бронь
+    const booking = db.prepare(`SELECT * FROM bookings WHERE id = ?`).get(bookingId);
+    if (!booking) return res.sendStatus(200)
+    
+    // Обновляем статус
+    const newStatus = action === 'confirm' ? 'CONFIRMED' : 'CANCELED';
+    db.prepare(`UPDATE bookings SET status = ? WHERE id = ?`).run(newStatus, bookingId);
 
-    if (!booking) return res.sendStatus(200);
-
-    booking.status = action === 'confirm'
-      ? 'confirmed'
-      : 'cancelled';
-
-    saveBookings(bookings);
-
+    booking.status = newStatus;
+    
     await editBookingStatus(
       query.message.chat.id,
       query.message.message_id,

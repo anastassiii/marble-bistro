@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const localtunnel = require('localtunnel');
+const fetch = global.fetch || require('node-fetch');
 
 //Роуты
 const bookingRouter = require('./routes/booking');
@@ -55,4 +56,4 @@ app.get('/', (req, res) => {
       process.exit();
     }) //Обрабатываем закрытие сервера
   })
-})
+})()
